@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
@@ -14,10 +11,33 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                   <div class="table-responsive">
+                    <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>Member Name</th>
+                                <th>Father Name</th>
+                                <th>Age</th>
+                                <th>DOB</th>
+                                <th>Household</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($members as $thismember)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td> {{$thismember->name}} </td>
+                                <td> {{$thismember->father_name}} </td>
+                                <td> {{$thismember->age}} </td>
+                                <td> {{$thismember->dob}} </td>
+                                <td> {{$thismember->household->household_no}} </td>
+                                    
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                   </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 @endsection

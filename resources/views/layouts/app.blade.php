@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Polio Drive</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -21,7 +21,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    Polio Drive
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -73,10 +73,36 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                <div class="row justify-content-center">
+                    @auth
+                    <div class="col-md-3">
+                        <ul class="nav nav-pills flex-column">
+                        {{-- <ul class="nav flex-column nav-pills"> --}}
+                        <li class="nav-item">
+                            <a class="nav-link @if(Route::is('home')) active @endif" aria-current="page" href="{{ route('home') }}">Home</a>
+                        </li>
+                        @if(auth()->user()->role == 'Admin')
+                        <li class="nav-item">
+                            <a class="nav-link @if(Route::is('household.add')) active @endif" href="{{ route('household.add') }}">Add Household</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @if(Route::is('member.add')) active @endif" href="{{ route('member.add') }}">Add Member</a>
+                        </li>
+                        @endif
+                        </ul>
+                    </div>
+                    @endauth
+                    <div class="col-md-8">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+@yield('js')
 </body>
 </html>
